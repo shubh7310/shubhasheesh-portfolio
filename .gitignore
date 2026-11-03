@@ -1,0 +1,8 @@
+node_modules
+dist
+.DS_Store
+*.local
+*.exe
+*.mhtml
+/Java Crash Course.pdf
+/Shubhasheesh_Shukla_CV.pdf

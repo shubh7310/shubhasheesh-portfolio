@@ -1538,46 +1538,5 @@
   font-family: var(--font-body);
 }
 
-@media (max-width: 1024px) {
-  .hero__grid {
-    grid-template-columns: minmax(0, 1fr) 250px;
-    gap: var(--space-8);
-  }
-
-  .hero__avatar-frame {
-    max-width: 250px;
-  }
-}
-
-@media (max-width: 860px) {
-  .hero__grid {
-    grid-template-columns: 1fr;
-    gap: var(--space-8);
-  }
-
-  .hero__avatar-wrap {
-    order: -1;
-    justify-content: center;
-    margin-bottom: var(--space-2);
-  }
-
-  .hero__avatar-frame {
-    max-width: 240px;
-  }
-}
-
-@media (max-width: 480px) {
-  .hero__avatar-frame {
-    max-width: 210px;
-  }
-
-  .hero__avatar-top-pill {
-    top: 14px;
-    left: 14px;
-    font-size: 0.65rem;
-    padding: 3px 8px;
-  }
-}
-
 
 

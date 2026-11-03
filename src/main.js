@@ -66,6 +66,7 @@ function initNav() {
   hamburger?.addEventListener('click', () => {
     const isOpen = hamburger.classList.toggle('open');
     links?.classList.toggle('open', isOpen);
+    nav?.classList.toggle('menu-open', isOpen);
     hamburger.setAttribute('aria-expanded', isOpen);
     document.body.style.overflow = isOpen ? 'hidden' : '';
   });
@@ -75,6 +76,7 @@ function initNav() {
     link.addEventListener('click', () => {
       hamburger?.classList.remove('open');
       links?.classList.remove('open');
+      nav?.classList.remove('menu-open');
       hamburger?.setAttribute('aria-expanded', 'false');
       document.body.style.overflow = '';
     });

@@ -1538,5 +1538,69 @@
   font-family: var(--font-body);
 }
 
+/* ——————————————————————
+   Toast Feedback & Copy State
+   —————————————————————— */
+.btn--copied {
+  border-color: var(--color-success) !important;
+  color: var(--color-success) !important;
+  background: rgba(45, 125, 70, 0.08) !important;
+}
+
+.toast-container {
+  position: fixed;
+  bottom: var(--space-6);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: var(--z-toast);
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+.toast {
+  background: var(--color-text-primary);
+  color: var(--color-text-inverse);
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-full);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  box-shadow: var(--shadow-xl);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  animation: toastIn 0.25s var(--ease-spring) forwards;
+  pointer-events: auto;
+}
+
+.toast.toast--out {
+  animation: toastOut 0.2s var(--ease-out) forwards;
+}
+
+@keyframes toastIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes toastOut {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(12px) scale(0.95);
+  }
+}
+
 
 

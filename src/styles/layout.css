@@ -19,6 +19,10 @@
   position: relative;
 }
 
+section[id], footer[id], main > section {
+  scroll-margin-top: calc(var(--nav-height) + var(--space-6));
+}
+
 .section__header {
   margin-bottom: var(--space-12);
 }

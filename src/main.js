@@ -62,6 +62,16 @@ function initNav() {
 
   sections.forEach(s => sectionObserver.observe(s));
 
+  // Smooth scroll to top on logo click
+  const brand = document.querySelector('.nav__brand');
+  brand?.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (window.location.hash) {
+      history.pushState(null, '', window.location.pathname);
+    }
+  });
+
   // Mobile menu
   hamburger?.addEventListener('click', () => {
     const isOpen = hamburger.classList.toggle('open');
@@ -84,6 +94,34 @@ function initNav() {
 }
 
 // ——————————————————————————————————————
+// Toast Notification
+// ——————————————————————————————————————
+function showToast(message) {
+  let container = document.querySelector('.toast-container');
+  if (!container) {
+    container = document.createElement('div');
+    container.className = 'toast-container';
+    container.setAttribute('aria-live', 'polite');
+    document.body.appendChild(container);
+  }
+
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.innerHTML = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--color-success);" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+    <span>${message}</span>
+  `;
+  container.appendChild(toast);
+
+  setTimeout(() => {
+    toast.classList.add('toast--out');
+    setTimeout(() => {
+      toast.remove();
+    }, 200);
+  }, 2400);
+}
+
+// ——————————————————————————————————————
 // Copy Email
 // ——————————————————————————————————————
 function initCopyEmail() {
@@ -91,17 +129,10 @@ function initCopyEmail() {
   btns.forEach(btn => {
     btn.addEventListener('click', async () => {
       const email = btn.getAttribute('data-copy-email');
+      const originalHTML = btn.innerHTML;
+
       try {
         await navigator.clipboard.writeText(email);
-        const tooltip = btn.querySelector('.tooltip');
-        if (tooltip) {
-          tooltip.textContent = 'Copied!';
-          tooltip.classList.add('show');
-          setTimeout(() => {
-            tooltip.classList.remove('show');
-            setTimeout(() => { tooltip.textContent = 'Click to copy'; }, 200);
-          }, 1500);
-        }
       } catch {
         // Fallback
         const ta = document.createElement('textarea');
@@ -111,16 +142,21 @@ function initCopyEmail() {
         ta.select();
         document.execCommand('copy');
         document.body.removeChild(ta);
-        const tooltip = btn.querySelector('.tooltip');
-        if (tooltip) {
-          tooltip.textContent = 'Copied!';
-          tooltip.classList.add('show');
-          setTimeout(() => {
-            tooltip.classList.remove('show');
-            setTimeout(() => { tooltip.textContent = 'Click to copy'; }, 200);
-          }, 1500);
-        }
       }
+
+      // Visual feedback on the button
+      btn.classList.add('btn--copied');
+      btn.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--color-success);" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        <span>Copied!</span>
+      `;
+
+      showToast(`Copied ${email} to clipboard!`);
+
+      setTimeout(() => {
+        btn.classList.remove('btn--copied');
+        btn.innerHTML = originalHTML;
+      }, 2000);
     });
   });
 }
@@ -487,9 +523,11 @@ function initCommandPalette() {
   if (!backdrop || !input || !list) return;
 
   const commands = [
-    { label: '📄 Download Resume (PDF)', category: 'Actions', icon: '📥', action: () => window.open('/assets/Shubhasheesh_Shukla_CV.pdf', '_blank') },
-    { label: '📋 Copy Email Address', category: 'Actions', icon: '📧', action: () => { navigator.clipboard.writeText('shubhasheeshshukla126@gmail.com'); alert('Email copied!'); } },
-    { label: '💼 View Work Experience & Projects', category: 'Navigation', icon: '🏢', action: () => document.getElementById('experience')?.scrollIntoView({ behavior: 'smooth' }) },
+    { label: '📄 Download Resume (PDF)', category: 'Actions', icon: '📥', action: () => window.open('./assets/Shubhasheesh_Shukla_CV.pdf', '_blank') },
+    { label: '📋 Copy Email Address', category: 'Actions', icon: '📧', action: () => { navigator.clipboard.writeText('shubhasheeshshukla126@gmail.com'); showToast('Copied email to clipboard!'); } },
+    { label: '🐙 View GitHub Profile (shubh7310)', category: 'Social', icon: '💻', action: () => window.open('https://github.com/shubh7310', '_blank') },
+    { label: '💼 View LinkedIn Profile', category: 'Social', icon: '🔗', action: () => window.open('https://linkedin.com/in/shubh7310', '_blank') },
+    { label: '🏢 View Work Experience & Projects', category: 'Navigation', icon: '🏢', action: () => document.getElementById('experience')?.scrollIntoView({ behavior: 'smooth' }) },
     { label: '🤖 Explore AI & Dev Tools', category: 'Navigation', icon: '✨', action: () => document.getElementById('ai-tools')?.scrollIntoView({ behavior: 'smooth' }) },
     { label: '🛠️ View Technical Skills Matrix', category: 'Navigation', icon: '💻', action: () => document.getElementById('skills')?.scrollIntoView({ behavior: 'smooth' }) },
     { label: '🎓 View Education & Credentials', category: 'Navigation', icon: '🎓', action: () => document.getElementById('education')?.scrollIntoView({ behavior: 'smooth' }) },

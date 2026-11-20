@@ -613,12 +613,12 @@
    ────────────────────────────────────── */
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: var(--space-6);
   margin-top: var(--space-8);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 860px) {
   .projects-grid {
     grid-template-columns: 1fr;
     gap: var(--space-5);

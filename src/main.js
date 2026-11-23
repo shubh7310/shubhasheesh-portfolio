@@ -528,7 +528,6 @@ function initCommandPalette() {
     { label: '🐙 View GitHub Profile (shubh7310)', category: 'Social', icon: '💻', action: () => window.open('https://github.com/shubh7310', '_blank') },
     { label: '💼 View LinkedIn Profile', category: 'Social', icon: '🔗', action: () => window.open('https://linkedin.com/in/shubh7310', '_blank') },
     { label: '🏢 View Work Experience', category: 'Navigation', icon: '🏢', action: () => document.getElementById('experience')?.scrollIntoView({ behavior: 'smooth' }) },
-    { label: '🚀 View Enterprise Full Stack Projects', category: 'Navigation', icon: '🚀', action: () => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' }) },
     { label: '🤖 Explore AI & Dev Tools', category: 'Navigation', icon: '✨', action: () => document.getElementById('ai-tools')?.scrollIntoView({ behavior: 'smooth' }) },
     { label: '🛠️ View Technical Skills Matrix', category: 'Navigation', icon: '💻', action: () => document.getElementById('skills')?.scrollIntoView({ behavior: 'smooth' }) },
     { label: '🎓 View Education & Credentials', category: 'Navigation', icon: '🎓', action: () => document.getElementById('education')?.scrollIntoView({ behavior: 'smooth' }) },
